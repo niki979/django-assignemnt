@@ -1,1 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+  <title>Weekly Schedule</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      width: 1500px;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+    
+  </style>
+  <script>
+    $(document).ready(function() {
+    $('button[id^="run-button-"]').click(function() {
+        var csv_path = $('#csv-path').val();
+        
+        $.ajax({
+            type: 'POST',
+            
+            data: {
+                'csv_path': csv_path
+                
+            },
+            success: function(data) {
+                console.log('Result:', data.result);
+                
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+});
+  </script>
+</head>
+<body>
+  <table>
+    <thead>
+      <tr>
+        <th>Task List</th>
+        <th>Path/URL</th>
+        <th>Celery Task Name</th>
+        <th>Run</th>
+        <th>Results</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Task 1</td>
+        <td>
+          <form method="post" data-form-id="form-1">
+            {% csrf_token %}
+            <input type="text" name="csv_path">
+          </td>
+        
+        <td></td>
+        <td>
+          <button id="run-button1">Run</button>
+          
+        </form></td>
+        <td>    
+          {{ result|safe }}
+        </td>
+        
+       
+      </tr>
+      
+      <tr>
+        <td>Task 2</td>
+        <td>
+          <form method="post" data-form-id="form-2">
+            {% csrf_token %}
+            <input type="text" name="csv_path">
+        </td>
+        <td></td>
+        <td><button id="run-button2">Run</button>
+         </td>
+        <td>{{ result|safe }}</td>
+       </form>
+      </tr>
+      <tr>
+        <td>Task 3</td>
+        <td><form method="post" data-form-id="form-3">
+          {% csrf_token %}
+          <input type="text" name="csv_path"></td>
+        <td></td>
+        <td><button id="run-button3">Run</button></td>
+        <td></td>
+        
+        </form>
+      </tr>
+      <tr>
+        <td>Task 4</td>
+        <td><form method="post" data-form-id="form-4">
+          {% csrf_token %}
+          <input type="text" name="csv_path"></td>
+        <td></td>
+        <td><button id="run-button4">Run</button></td>
+        <td></td>
+        </form>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4"></td>
+        <td colspan="2"><button>Run All</button></td>
+      </tr>
+    </tfoot>
+  </table>
+  <div id="content" >
+    {{ result2|safe }}
+   
+</div>
 
+</body>
+</html>
